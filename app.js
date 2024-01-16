@@ -1,19 +1,18 @@
 const express = require("express");
 const path = require("path");
-// const mysql = require("mysql2");
 const mongoose = require("mongoose");
-
-
-// const mongodb = require("mongodb");
-// const mongoclient = mongodb.MongoClient;
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const url = "mongodb://localhost:27017/Bank";
-const dbname = "Bank";
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
+const url = "mongodb://127.0.0.1:27017/Bank";
+
+mongoose.connect(url);
+
+// , {useNewUrlParser: true, useUnifiedTopology: true}
 
 const db = mongoose.connection;
 
@@ -22,52 +21,36 @@ db.once('open', () => {
   console.log('Connected to MongoDB!');
 });
 
-// const client = new mongoclient(url, {useNewUrlParser: true,useUnifiedTopology: true});
-// const client = new mongoclient(url,{ useNewUrlParser: true, useUnifiedTopology: true });
-
-// client.connect((err)=>{
-//     if(err){
-//         console.log(err);
-//         return;
-//     }
-
-//     console.log("Connected to mongodb database");
-//     resolve();
-// });
-
-
-// let p = new Promise((resolve,reject)=>{
-
-//     try{
-//         client.connect((err)=>{
-//             if(err){
-//                 console.log(err);
-//                 return;
-//             }
-        
-//             console.log("Connected to mongodb database");
-//             resolve();
-//         });
-//     }
-//     catch(err){
-//         reject(err);
-//     }
-
-// });
-
-
-// p.then(()=>{
-//     console.log("Connected to Mongodb");
-// }).catch((err)=>{
-//     console.log(err);
-// });
-
-
-
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
+
+const cutomerSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    balance: Number,
+    address: String
+});
+
+const customer = mongoose.model("customer", cutomerSchema);
+
+
+
+app.post("/add", (req,res)=>{
+  let body = req.body;
+  console.log(body);
+
+  const newcust = new customer({
+    name: body.name,
+    email: body.email,
+    balance: body.balance,
+    address: body.address
+  });
+  
+  newcust.save();
+  res.sendStatus(200);
+});
 
 app.get("/",(req,res)=>{
     res.render("main");
