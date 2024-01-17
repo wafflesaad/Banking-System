@@ -23,6 +23,7 @@
 .desc img{
     width: 100%;
     height: auto;
+    max-height: 50vh;
     grid-area: img;
     justify-self: center;
     align-self: center;
@@ -43,6 +44,7 @@
     margin: 30px;
     margin-top: 0;
     margin-bottom: 0;
+    font-size: 1vw;
 }
 
 a{
@@ -65,4 +67,32 @@ a:hover{
     background-color: rgba(189, 194, 252, 0.436);
     border-radius: 20px;
     transition: 0.5s;
+}
+
+@media (max-width: 900px) {
+    .desc{
+        margin-top: 30px;
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .desc h1{
+        display: none;
+    }
+    .desc p{
+        width: 80%;
+        font-size: 1.2em;
+        margin-top: 30px;
+        text-align: center;
+    }
+    .desc img{
+        width: 60%;
+        height: auto;
+    }
+    
+    a{
+        width: 60%;
+    }
 }
