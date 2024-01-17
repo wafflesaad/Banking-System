@@ -1,3 +1,68 @@
-h1{
-    color: blue;
+.maincontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.desc{
+    background-color: rgba(189, 194, 252, 0.436);
+    width: 50%;
+    height: 70vh;
+    display: grid;
+    border-radius: 20px;
+    margin-top: 10vh;
+
+    grid-template-areas: 
+        "title img"
+        "desc img"
+        "desc img"
+        "btn btn";
+}
+
+.desc img{
+    width: 100%;
+    height: auto;
+    grid-area: img;
+    justify-self: center;
+    align-self: center;
+    margin-right: 30px;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.desc h1{
+    grid-area: title;
+    font-size: 3rem;
+    margin: 35px;
+}
+
+.desc p{
+    grid-area: desc;
+    width: 20vw;
+    margin: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a{
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-decoration: none;
+    color: black;
+    width: 15vw;
+    height: 5vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: btn;
+    align-self: center;
+    justify-self: center;
+}
+
+a:hover{
+    background-color: rgba(189, 194, 252, 0.436);
+    border-radius: 20px;
+    transition: 0.5s;
 }
