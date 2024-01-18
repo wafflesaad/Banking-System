@@ -10,9 +10,12 @@ app.use(express.urlencoded({extended: true}));
 
 const url = "mongodb://127.0.0.1:27017/Bank";
 
+try{
 mongoose.connect(url);
-
-// , {useNewUrlParser: true, useUnifiedTopology: true}
+}
+catch(err){
+  console.log(err);
+}
 
 const db = mongoose.connection;
 
@@ -170,6 +173,20 @@ app.post("/transact", async (req,res)=>{
 app.get("/",(req,res)=>{
     res.render("main");
 })
+
+app.get("/customers", (req,res)=>{
+
+
+  res.render("customers");
+});
+
+app.get("/getcustomers", (req,res)=>{
+  customer.find().select("name accountno").then((result)=>{
+    res.send(result);
+  }).catch((err)=>{
+    console.log(err);
+  });
+});
 
 app.listen(port, "0.0.0.0", ()=>{
     console.log(`App running on port ${port}`);
