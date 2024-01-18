@@ -14,19 +14,24 @@ nav{
     height: 15vh;
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: rgba(2, 0, 27, 0.4);
 }
 
 nav h1{
     color: white;
-    margin-left: 5vw;
     /* font-family: 'Rubik', sans-serif;
     font-family: 'ZCOOL QingKe HuangYou', sans-serif; */
-    font-size: 3rem;
-
+    font-size: 3rem;;
 }
 
 .btns{
     background-color: rgb(203, 150, 50);
     border-radius: 2vw;
+}
+
+.btns:hover{
+    background-color: rgba(189, 194, 252, 0.436);
+    border-radius: 20px;
+    transition: 0.5s;
 }

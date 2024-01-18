@@ -83,19 +83,31 @@ app.post("/update", (req,res)=>{
 
 app.post("/transact", async (req,res)=>{
   let body = req.body;
-
+  let abort = false;
+  let newbalance = 0;
   async function findFrom(){
     console.log("findfrom started");
     await customer.findOne({accountno: body.from}).then((result)=>{
       if(!result){
         console.log("No from entry found");
-        //todo deal with no entry found case
+        
+        let obj = {
+          custnotfound: true
+        }
+        res.send(obj);
+        abort = true;
+        return;
       }
       console.log(result);
       
       if(result.balance < body.amount){
         console.log("Insufficient balance");
-        //todo deal with insufficient balance case
+        let obj = {
+          insufficientbalance: true
+        }
+        res.send(obj);
+        abort = true;
+        return;
       }
 
     }).catch((err)=>{
@@ -110,7 +122,12 @@ app.post("/transact", async (req,res)=>{
     await customer.findOne({accountno: body.to}).then((result)=>{
       if(!result){
         console.log("No to entry found");
-        //todo deal with no entry found case
+        let obj = {
+          recnotfound: true
+        }
+        res.send(obj);
+        abort = true;
+        return;
       }
       console.log(result);
     }).catch((err)=>{
@@ -130,6 +147,15 @@ app.post("/transact", async (req,res)=>{
       console.log("Error updating from");
       console.log(err);
     });
+
+    await customer.findOne({accountno: body.from}).select("balance").then((result)=>{
+      console.log("New balance");
+      console.log(result);
+      newbalance = result.balance;
+    }).catch((err)=>{
+      console.log(err);
+    });
+
     console.log("updatefrom ended");
   }
 
@@ -148,7 +174,13 @@ app.post("/transact", async (req,res)=>{
   }
 
   await findFrom();
+  if(abort){
+    return;
+  }
   await findTo();
+  if(abort){
+    return;
+  }
   await updateFrom();
   await updateTo();
 
@@ -166,7 +198,16 @@ app.post("/transact", async (req,res)=>{
     console.log(err);
   });
   
-  res.sendStatus(200);
+  let obj = {
+    from: body.from,
+    to: body.to,
+    amount: body.amount,
+    date: new Date(),
+    status: "success",
+    newbalance: newbalance
+  }
+
+  res.json(obj);
 
 });
 
@@ -175,9 +216,33 @@ app.get("/",(req,res)=>{
 })
 
 app.get("/customers", (req,res)=>{
-
-
   res.render("customers");
+});
+
+app.get("/customers/:accno", (req,res)=>{
+  let accno = req.params.accno;
+  accno = accno.substring(1);
+  res.render("custinfo", {accno: accno});
+
+  // customer.findOne({accountno: accno}).then((result)=>{
+  //   console.log(result);
+  //   res.send(result);
+  // }).catch((err)=>{
+  //   console.log(err);
+  // });
+
+})
+
+app.post("/getcustinfo", (req,res)=>{
+  let accno = req.body.accountno;
+  console.log(accno);
+  customer.findOne({accountno: accno}).then((result)=>{
+    console.log(result);
+    res.send(result);
+  }).catch((err)=>{
+    console.log(err);
+  });
+  
 });
 
 app.get("/getcustomers", (req,res)=>{

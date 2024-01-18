@@ -41,6 +41,7 @@
 
 @media (max-width: 900px){
     #custs{
+        margin-top: 5px;
         grid-template-columns: 100%;
     }
 

@@ -90,6 +90,7 @@ a:hover{
     .desc img{
         width: 60%;
         height: auto;
+        margin-left: 8vw;
     }
     
     a{

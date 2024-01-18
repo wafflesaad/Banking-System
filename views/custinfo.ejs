@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Info | IntelliBank</title>
+    <link rel="stylesheet" href="/style/custinfo.css">
+    <link rel="stylesheet" href="/style/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&family=Rubik:wght@500&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <h1>IntelliBank</h1>
+    </nav>
+
+    <div class="maincont">
+        <div class="info">
+            <h1>Customer Information</h1>
+            <p id="cname">Name: </p>
+            <p id="cacc">Account Number: <%=accno%></p>
+            <p id="cbalance">Balance: </p>
+            <p id="cemail">Email: </p>
+            <p id="caddress">Address: </p>
+            <button class="btns" id="transfer">Transfer</button>
+            <div id="sendcont">
+                <input type="text" id="sendto" placeholder="Enter Account Number">
+                <input type="text" id="sendamount" placeholder="Enter Amount">
+                <button class="btns" id="send">Send</button>
+                <p id="status"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let accountno = <%=accno%>;
+    </script>
+
+    <script src="/scripts/custinfo.js"></script>
+</body>
+</html>
