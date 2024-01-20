@@ -63,6 +63,11 @@ send.addEventListener("click", ()=>{
             statusmsg.style.display = "block";
         }
 
+        if(data.sameacc){
+            statusmsg.innerHTML = "Cannot send to same account";
+            return;
+        }
+
         if(data.custnotfound){
             statusmsg.innerHTML = "Customer not found";
             return;

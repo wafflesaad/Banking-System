@@ -86,6 +86,15 @@ app.post("/transact", async (req,res)=>{
   let body = req.body;
   let abort = false;
   let newbalance = 0;
+
+  if(body.from == body.to){
+    let obj = {
+      sameacc: true
+    }
+    res.send(obj);
+    return;
+  }
+
   async function findFrom(){
     console.log("findfrom started");
     await customer.findOne({accountno: body.from}).then((result)=>{
