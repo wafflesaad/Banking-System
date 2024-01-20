@@ -42,6 +42,7 @@ transfer.addEventListener("click", ()=>{
 });
 
 send.addEventListener("click", ()=>{
+    send.disabled = true;
     let sendaddress = sendto.value;
     let amount = sendamount.value;
     
@@ -96,7 +97,7 @@ send.addEventListener("click", ()=>{
         statusmsg.innerHTML = "Transaction failed";
 
     });
-    
+    send.disabled = false;
 });
 
     
