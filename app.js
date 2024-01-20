@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-// const url = "mongodb://127.0.0.1:27017/Bank";
+
 const url = "mongodb+srv://isaadibrahim2005:Et9HZH2dDAahjutU@intellibank.lmhjphr.mongodb.net/Bank?retryWrites=true&w=majority";
 
 try{
